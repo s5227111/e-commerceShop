@@ -1,7 +1,7 @@
 
 using e_commerceProj.Models;
 using Microsoft.EntityFrameworkCore;
-namespace e_commerceProj.Models
+namespace e_commerceProj.Context
 {
     public class ProductContext : DbContext
     {
