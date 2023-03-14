@@ -7,9 +7,9 @@ namespace e_commerceProj.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly productContext _context;
+    private readonly ProductContext _context;
 
-    public HomeController(ILogger<HomeController> logger, productContext context)
+    public HomeController(ILogger<HomeController> logger, ProductContext context)
     {
         _logger = logger;
         _context = context;
