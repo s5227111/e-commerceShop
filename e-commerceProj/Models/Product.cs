@@ -8,6 +8,5 @@ namespace e_commerceProj.Models
         public decimal Price { get; set; }
         public int Quantity { get; set; }
 
-        public ICollection<CartProduct> CartProducts { get; set; }
     }
 }
