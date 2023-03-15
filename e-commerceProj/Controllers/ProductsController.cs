@@ -14,7 +14,7 @@ namespace e_commerceProj.Controllers
     {
         private readonly ProductContext _context;
 
-        //  dependenciy injection
+        //  dependency injection
         public ProductsController(ProductContext context)
         {
             _context = context;
@@ -37,7 +37,7 @@ namespace e_commerceProj.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -87,9 +87,9 @@ namespace e_commerceProj.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,ProductName,Description,Price,Quantity")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity")] Product product)
         {
-            if (id != product.ProductID)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace e_commerceProj.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductID))
+                    if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace e_commerceProj.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace e_commerceProj.Controllers
 
         private bool ProductExists(int id)
         {
-            return (_context.Products?.Any(e => e.ProductID == id)).GetValueOrDefault();
+            return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

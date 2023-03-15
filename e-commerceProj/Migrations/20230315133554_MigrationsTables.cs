@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace e_commerceProj.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class MigrationsTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,14 +18,14 @@ namespace e_commerceProj.Migrations
                 name: "Carts",
                 columns: table => new
                 {
-                    CartID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Total = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    CodeDiscount = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carts", x => x.CartID);
+                    table.PrimaryKey("PK_Carts", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -33,9 +33,9 @@ namespace e_commerceProj.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ProductID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ProductName = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -44,7 +44,7 @@ namespace e_commerceProj.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -52,29 +52,34 @@ namespace e_commerceProj.Migrations
                 name: "CartProducts",
                 columns: table => new
                 {
-                    ProductID = table.Column<int>(type: "int", nullable: false),
-                    CartID = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    ProductID = table.Column<int>(type: "int", nullable: false),
+                    CartID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartProducts", x => new { x.CartID, x.ProductID });
+                    table.PrimaryKey("PK_CartProducts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CartProducts_Carts_CartID",
                         column: x => x.CartID,
                         principalTable: "Carts",
-                        principalColumn: "CartID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CartProducts_Products_ProductID",
                         column: x => x.ProductID,
                         principalTable: "Products",
-                        principalColumn: "ProductID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProducts_CartID",
+                table: "CartProducts",
+                column: "CartID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartProducts_ProductID",

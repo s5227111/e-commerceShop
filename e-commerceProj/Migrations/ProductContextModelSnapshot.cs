@@ -61,23 +61,23 @@ namespace e_commerceProj.Migrations
 
             modelBuilder.Entity("e_commerceProj.Models.Product", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("longtext");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductID");
+                    b.HasKey("Id");
 
                     b.ToTable("Products");
                 });
@@ -91,7 +91,7 @@ namespace e_commerceProj.Migrations
                         .IsRequired();
 
                     b.HasOne("e_commerceProj.Models.Product", "Product")
-                        .WithMany("CartProducts")
+                        .WithMany()
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -99,11 +99,6 @@ namespace e_commerceProj.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("e_commerceProj.Models.Product", b =>
-                {
-                    b.Navigation("CartProducts");
                 });
 #pragma warning restore 612, 618
         }

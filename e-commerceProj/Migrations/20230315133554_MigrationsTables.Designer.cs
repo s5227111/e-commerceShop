@@ -10,8 +10,8 @@ using e_commerceProj.Context;
 namespace e_commerceProj.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20230314172221_Cart")]
-    partial class Cart
+    [Migration("20230315133554_MigrationsTables")]
+    partial class MigrationsTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,23 +64,23 @@ namespace e_commerceProj.Migrations
 
             modelBuilder.Entity("e_commerceProj.Models.Product", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("longtext");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductID");
+                    b.HasKey("Id");
 
                     b.ToTable("Products");
                 });
@@ -94,7 +94,7 @@ namespace e_commerceProj.Migrations
                         .IsRequired();
 
                     b.HasOne("e_commerceProj.Models.Product", "Product")
-                        .WithMany("CartProducts")
+                        .WithMany()
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -102,11 +102,6 @@ namespace e_commerceProj.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("e_commerceProj.Models.Product", b =>
-                {
-                    b.Navigation("CartProducts");
                 });
 #pragma warning restore 612, 618
         }

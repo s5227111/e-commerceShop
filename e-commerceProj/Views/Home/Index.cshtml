@@ -21,7 +21,7 @@
             <div class="card-body p-4">
                 <div class="text-center">
                     <!-- Product name-->
-                    <h5 class="fw-bolder">@item.ProductName</h5>
+                    <h5 class="fw-bolder">@item.Name</h5>
                     <!-- Product price-->
                     <span class="text-muted text-decoration-line-through">@item.Price</span>
                     @item.Price
@@ -29,7 +29,7 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/Cart/Add/@item.ProductID">Add to cart</a></div>
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/Cart/Add/@item.Id">Add to cart</a></div>
             </div>
         </div>
     </div>
